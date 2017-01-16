@@ -1,0 +1,59 @@
+﻿@model FamiLife.Models.Tache
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tache</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.echeance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.echeance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tacheFaite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tacheFaite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valideeParParents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valideeParParents)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
