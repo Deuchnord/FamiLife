@@ -138,6 +138,10 @@
     <Compile Include="Migrations\201701220838368_InitialCreate.Designer.cs">
       <DependentUpon>201701220838368_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701220915390_databaseForRoleIdInUtilisateurs.cs" />
+    <Compile Include="Migrations\201701220915390_databaseForRoleIdInUtilisateurs.Designer.cs">
+      <DependentUpon>201701220915390_databaseForRoleIdInUtilisateurs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FamiLifeDbContext.cs" />
     <Compile Include="Models\Role.cs" />
@@ -168,6 +172,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701220838368_InitialCreate.resx">
       <DependentUpon>201701220838368_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701220915390_databaseForRoleIdInUtilisateurs.resx">
+      <DependentUpon>201701220915390_databaseForRoleIdInUtilisateurs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
