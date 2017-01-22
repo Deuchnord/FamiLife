@@ -38,8 +38,8 @@ namespace FamiLife.Controllers
         // GET: Utilisateurs/Create
         public ActionResult Create()
         {
-            ViewData["Roles"] = new SelectList(getAllRole());
-            return View(new Utilisateur());
+            getRoleDropdownList();
+            return View();
         }
 
         // POST: Utilisateurs/Create
@@ -47,7 +47,7 @@ namespace FamiLife.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nom,prenom,surnom,role")] Utilisateur utilisateur)
+        public ActionResult Create([Bind(Include = "id,nom,prenom,surnom")] Utilisateur utilisateur)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace FamiLife.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            getRoleDropdownList(utilisateur.role.Id);
             return View(utilisateur);
         }
 
@@ -125,9 +125,12 @@ namespace FamiLife.Controllers
             base.Dispose(disposing);
         }
 
-        public IEnumerable<Role> getAllRole()
+        private void getRoleDropdownList(object selectedRole =null)
         {
-            return this.db.Roles.ToList();
+            var roleQuery = from r in db.Roles
+                            orderby r.Id
+                            select r;
+            ViewBag.RoleID = new SelectList(roleQuery, "Id", "Libelle", selectedRole);
         }
     }
 

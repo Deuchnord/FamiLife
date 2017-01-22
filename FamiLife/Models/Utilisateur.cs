@@ -13,7 +13,7 @@ namespace FamiLife.Models
        [Required] public String nom { get; set; }
        [Required] public String prenom { get; set; }
         public String surnom { get; set; }
-        [Required] public virtual Role role { get; set; }
+        public virtual Role role { get; set; }
         public virtual List<Tache> taches { get; set; }
     }
 
