@@ -162,6 +162,18 @@
     <Compile Include="Migrations\201701221421419_tentativeManyToMany2.Designer.cs">
       <DependentUpon>201701221421419_tentativeManyToMany2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701221543167_tentativeManyToMany4.cs" />
+    <Compile Include="Migrations\201701221543167_tentativeManyToMany4.Designer.cs">
+      <DependentUpon>201701221543167_tentativeManyToMany4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701221552311_tentativeManyToMany6.cs" />
+    <Compile Include="Migrations\201701221552311_tentativeManyToMany6.Designer.cs">
+      <DependentUpon>201701221552311_tentativeManyToMany6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701221555493_tentativeManyToMany7.cs" />
+    <Compile Include="Migrations\201701221555493_tentativeManyToMany7.Designer.cs">
+      <DependentUpon>201701221555493_tentativeManyToMany7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FamiLifeDbContext.cs" />
     <Compile Include="Models\Role.cs" />
@@ -210,6 +222,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701221421419_tentativeManyToMany2.resx">
       <DependentUpon>201701221421419_tentativeManyToMany2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221543167_tentativeManyToMany4.resx">
+      <DependentUpon>201701221543167_tentativeManyToMany4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221552311_tentativeManyToMany6.resx">
+      <DependentUpon>201701221552311_tentativeManyToMany6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221555493_tentativeManyToMany7.resx">
+      <DependentUpon>201701221555493_tentativeManyToMany7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

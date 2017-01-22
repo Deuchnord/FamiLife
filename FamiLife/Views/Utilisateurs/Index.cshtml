@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.surnom)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
         <th>@Html.DisplayNameFor(model => model.role)</th>
         <th>Actions</th>
     </tr>
@@ -35,6 +38,10 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.surnom)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.password)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.role.libelle)

@@ -47,7 +47,7 @@ namespace FamiLife.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nom,prenom,surnom,RoleID")] Utilisateur utilisateur)
+        public ActionResult Create([Bind(Include = "id,nom,prenom,password,surnom,RoleID")] Utilisateur utilisateur)
         {
             if (ModelState.IsValid)
             {

@@ -15,7 +15,7 @@ namespace FamiLife.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            
             modelBuilder.Entity<Tache>()
                 .HasMany(t => t.donneeA).WithMany(u => u.taches)
                 .Map(t => t.MapLeftKey("TacheID")
