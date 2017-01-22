@@ -38,6 +38,7 @@ namespace FamiLife.Controllers
         // GET: Taches/Create
         public ActionResult Create()
         {
+            getRoleDropdownList();
             return View();
         }
 
@@ -46,15 +47,23 @@ namespace FamiLife.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents")] Tache tache)
+        public ActionResult Create([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents,donneeParID")] Tache tache)
         {
             if (ModelState.IsValid)
             {
                 db.Taches.Add(tache);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    
+                }
                 return RedirectToAction("Index");
             }
 
+            getRoleDropdownList(tache.donneeParID);
             return View(tache);
         }
 
@@ -122,6 +131,15 @@ namespace FamiLife.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void getRoleDropdownList(object selectedParent = null)
+        {
+            var roleQuery = from r in db.Utilisateurs
+                            where r.roleID == 1
+                            orderby r.id
+                            select r;
+            ViewBag.donneeParID = new SelectList(roleQuery, "id", "surnom", selectedParent);
         }
     }
 }

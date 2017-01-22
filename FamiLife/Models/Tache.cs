@@ -16,9 +16,8 @@ namespace FamiLife.Models
         public DateTime echeance { get; set; }
         public bool tacheFaite { get; set; }
         public bool valideeParParents { get; set; }
-        [Required]
+        public int donneeParID { get; set; }
         public virtual Utilisateur donneePar { get; set; }
-        [Required]
         public virtual List<Utilisateur> donneeA { get; set; }
     
     }
