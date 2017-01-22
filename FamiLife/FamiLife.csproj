@@ -154,6 +154,14 @@
     <Compile Include="Migrations\201701221139384_databaseForDonneeParinTache3.Designer.cs">
       <DependentUpon>201701221139384_databaseForDonneeParinTache3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701221348014_tentativeManyToMany.cs" />
+    <Compile Include="Migrations\201701221348014_tentativeManyToMany.Designer.cs">
+      <DependentUpon>201701221348014_tentativeManyToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701221421419_tentativeManyToMany2.cs" />
+    <Compile Include="Migrations\201701221421419_tentativeManyToMany2.Designer.cs">
+      <DependentUpon>201701221421419_tentativeManyToMany2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FamiLifeDbContext.cs" />
     <Compile Include="Models\Role.cs" />
@@ -196,6 +204,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701221139384_databaseForDonneeParinTache3.resx">
       <DependentUpon>201701221139384_databaseForDonneeParinTache3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221348014_tentativeManyToMany.resx">
+      <DependentUpon>201701221348014_tentativeManyToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221421419_tentativeManyToMany2.resx">
+      <DependentUpon>201701221421419_tentativeManyToMany2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

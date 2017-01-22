@@ -25,7 +25,10 @@ namespace FamiLife.Migrations
 
             var utilisateurs = new List<Utilisateur>
             {
-                new Utilisateur {nom = "VAN DE KADSYE", prenom ="Laurent", surnom="Papa", roleID=1 }
+                new Utilisateur {nom = "VAN DE KADSYE", prenom ="Laurent", surnom="Papa", password="lvdk", roleID=1 },
+                new Utilisateur {nom = "VAN DE KADSYE", prenom ="Sylvie", surnom="Maman", password="svdk", roleID=1 },
+                new Utilisateur {nom = "VAN DE KADSYE", prenom ="Quentin", surnom="", password="qvdk", roleID=2 },
+                new Utilisateur {nom = "VAN DE KADSYE", prenom ="Victor", surnom="", password="vvdk", roleID=2 }
             };
         }
     }

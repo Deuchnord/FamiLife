@@ -9,6 +9,7 @@ namespace FamiLife.Models
 {
     public class Tache
     {
+        [Key]
         public int id { get; set; }
         [Required]
         public String titre { get; set; }
@@ -18,7 +19,8 @@ namespace FamiLife.Models
         public bool valideeParParents { get; set; }
         public int donneeParID { get; set; }
         public virtual Utilisateur donneePar { get; set; }
-        public virtual List<Utilisateur> donneeA { get; set; }
+
+        public virtual ICollection<Utilisateur> donneeA { get; set; }
     
     }
 
