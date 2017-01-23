@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FamiLife.Models;
+using FamiLife.ViewModels;
 
 namespace FamiLife.Controllers
 {
@@ -38,7 +39,10 @@ namespace FamiLife.Controllers
         // GET: Taches/Create
         public ActionResult Create()
         {
+            var tache = new Tache();
+            tache.donneeA = new List<Utilisateur>();
             getRoleDropdownList();
+            getChildrenList(tache);
             return View();
         }
 
@@ -47,8 +51,18 @@ namespace FamiLife.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents,donneeParID")] Tache tache)
+        public ActionResult Create([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents,donneeParID,donneeA")] Tache tache,string[] selectedChildren)
         {
+            if(selectedChildren !=null)
+            {
+                tache.donneeA = new List<Utilisateur>();
+                foreach(var child in selectedChildren)
+                {
+                    var childToAdd = db.Utilisateurs.Find(int.Parse(child));
+                    tache.donneeA.Add(childToAdd);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Taches.Add(tache);
@@ -140,6 +154,24 @@ namespace FamiLife.Controllers
                             orderby r.id
                             select r;
             ViewBag.donneeParID = new SelectList(roleQuery, "id", "surnom", selectedParent);
+        }
+
+        private void getChildrenList(Tache tache = null)
+        {
+            var alluser = db.Utilisateurs;
+            var tacheUtilisateur = new HashSet<int>();
+            var viewModel = new List<TacheAssigneeA>();
+            foreach(var user in alluser)
+            {
+                viewModel.Add(new TacheAssigneeA
+                {
+                    UtilisateurID = user.id,
+                    Nom = user.nom +" "+ user.prenom,
+                    assigne = tacheUtilisateur.Contains(user.id)
+
+                });
+            }
+            ViewBag.users = viewModel;
         }
     }
 }

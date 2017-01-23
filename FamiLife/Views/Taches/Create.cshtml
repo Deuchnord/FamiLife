@@ -68,6 +68,26 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.donneeA, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                
+                    @{ 
+                        List<FamiLife.ViewModels.TacheAssigneeA> children = ViewBag.users;
+
+                        foreach (var child in children)
+                        {
+                            @:
+                            <input type="checkbox" name="selectedChildren" value="@child.UtilisateurID" @(Html.Raw(child.assigne ? "checked=\"checked\"" : "")) />
+                            @child.UtilisateurID @: @child.Nom
+                    @:
+                        }
+                        
+                    }
+                
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

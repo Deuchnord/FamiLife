@@ -180,6 +180,7 @@
     <Compile Include="Models\Tache.cs" />
     <Compile Include="Models\Utilisateur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\TacheAssigneeA.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
