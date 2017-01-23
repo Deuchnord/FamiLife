@@ -27,7 +27,7 @@
         <th>
             @Html.DisplayNameFor(model => model.valideeParParents)
         </th>
-        <th></th>
+        <th>Affectée à</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -46,6 +46,13 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.valideeParParents)
+        </td>
+        <td>
+            @foreach (var child in item.donneeA)
+            {
+                @Html.DisplayFor(modelItem => child.prenom) <br/>
+            }
+
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
