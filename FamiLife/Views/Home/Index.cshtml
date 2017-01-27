@@ -1,10 +1,14 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 }
 <h1>FamiLife</h1>
 <span>Parce que la famille c'est important</span>
 <div class="well">
+    @if (ViewBag.authErr != null)
+    {
+    <div class="alert alert-danger">@(ViewBag.authErr)</div>
+    }
     <form name="connexion" method="post" action="/Home/Identify">
         <label for="ipt_prenom">Prénom : </label>
         <input type="text" id="ipt_prenom" name="prenom" />

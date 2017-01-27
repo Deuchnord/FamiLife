@@ -14,6 +14,9 @@ namespace FamiLife.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            if (TempData["AuthErr"] != null)
+                ViewBag.authErr = TempData["AuthErr"].ToString();
+
             return View();
         }
 
@@ -21,34 +24,40 @@ namespace FamiLife.Controllers
         [HttpPost]
         public ActionResult Identify(string prenom, string mdp)
         {
-            Utilisateur Utilisateur = (from u in db.Utilisateurs
-                                       where u.prenom == prenom
-                                       where u.password == mdp
-                                       select new
-                                       {
-                                           u.id,
-                                           u.nom,
-                                           u.prenom,
-                                           u.surnom,
-                                           u.roleID,
-                                           u.role,
-                                           u.taches
-                                       }).AsEnumerable()
-                                       .Select(u => new Utilisateur {
-                                           id = u.id,
-                                           nom = u.nom,
-                                           prenom = u.prenom,
-                                           password = null,
-                                           surnom = u.surnom,
-                                           roleID = u.roleID,
-                                           role = u.role,
-                                           taches = u.taches
-                                       }).ToList()[0];
-                                            ;
+            try
+            {
+                Utilisateur Utilisateur = (from u in db.Utilisateurs
+                                           where u.prenom == prenom
+                                           where u.password == mdp
+                                           select new
+                                           {
+                                               u.id,
+                                               u.nom,
+                                               u.prenom,
+                                               u.surnom,
+                                               u.roleID,
+                                               u.role,
+                                               u.taches
+                                           }).AsEnumerable()
+                                           .Select(u => new Utilisateur {
+                                               id = u.id,
+                                               nom = u.nom,
+                                               prenom = u.prenom,
+                                               password = null,
+                                               surnom = u.surnom,
+                                               roleID = u.roleID,
+                                               role = u.role,
+                                               taches = u.taches
+                                           }).ToList()[0];
+                Session["utilisateur"] = Utilisateur;
+                
+                return Redirect("/taches");
 
-            Session["utilisateur"] = Utilisateur;
-
-            return Redirect("/taches");
+            } catch(ArgumentOutOfRangeException e)
+            {
+                TempData["authErr"] = "Nom ou mot de passe incorrect !";
+                return RedirectToAction("Index");
+            }
         }
     }
 }
