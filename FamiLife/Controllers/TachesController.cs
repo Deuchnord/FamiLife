@@ -18,6 +18,7 @@ namespace FamiLife.Controllers
         // GET: Taches
         public ActionResult Index()
         {
+            //ViewBag.Session.Utilisateur = Session["utilisateur"];
             return View(db.Taches.ToList());
         }
 
