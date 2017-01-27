@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<FamiLife.Models.Tache>
+@using FamiLife.Models
 
 @{
     ViewBag.Title = "Index";
@@ -6,6 +7,8 @@
 }
 
 <h2>Index</h2>
+
+<p>Bienvenue, @( ((Utilisateur)HttpContext.Current.Session["utilisateur"]).prenom )</p>
 
 <p>
     @Html.ActionLink("Create New", "Create")
