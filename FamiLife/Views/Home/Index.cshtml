@@ -1,4 +1,16 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
+<h1>FamiLife</h1>
+<span>Parce que la famille c'est important</span>
+<div class="well">
+    <form name="connexion" method="post" action="/Home/Identify">
+        <label for="ipt_prenom">Prénom : </label>
+        <input type="text" id="ipt_prenom" name="prenom" />
+        <label for="ipt_password">Mot de passe :</label>
+        <input type="password" name="mdp" id="ipt_password"/>
+        <button type="submit">Connexion</button>
 
+    </form>
+</div>
