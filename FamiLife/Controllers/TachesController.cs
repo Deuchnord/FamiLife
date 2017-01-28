@@ -26,16 +26,40 @@ namespace FamiLife.Controllers
 
         public ActionResult MesTaches()
         {
-            if(Session["utilisateur"] ==null && ((Utilisateur)Session["utilisateur"]).roleID !=2)
+            if(Session["utilisateur"] == null || ((Utilisateur)Session["utilisateur"]).roleID != 2)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                var tacheChildren = (from t in db.Taches
-                                     where db.tach)
-                                     select t).ToList();
-                return View(tacheChildren);
+                Utilisateur utilisateur = (Utilisateur)Session["utilisateur"];
+                IEnumerable<Tache> mesTaches = Enumerable.AsEnumerable((from t in db.Taches
+                                     where t.donneeA.Contains(utilisateur)
+                                     select new {
+                                         t.id,
+                                         t.description,
+                                         t.donneeA,
+                                         t.donneePar,
+                                         t.donneeParID,
+                                         t.echeance,
+                                         t.tacheFaite,
+                                         t.titre,
+                                         t.valideeParParents
+                                     }))
+                                     .Select(t => new Tache
+                                     {
+                                         id = t.id,
+                                         description = t.description,
+                                         donneeA = t.donneeA,
+                                         donneePar = t.donneePar,
+                                         donneeParID = t.donneeParID,
+                                         echeance = t.echeance,
+                                         tacheFaite = t.tacheFaite,
+                                         titre = t.titre,
+                                         valideeParParents = t.valideeParParents
+                                     });
+
+                return View(mesTaches.ToList());
             }
         }
 
