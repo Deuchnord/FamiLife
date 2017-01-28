@@ -18,33 +18,46 @@ namespace FamiLife.Controllers
         // GET: Taches
         public ActionResult Index()
         {
-            //ViewBag.Session.Utilisateur = Session["utilisateur"];
-            return View(db.Taches.ToList());
+            if (UtilisateursController.isAuthenticated(this))
+                return View(db.Taches.ToList());
+            else
+                return Redirect("/");
         }
 
         // GET: Taches/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (UtilisateursController.isAuthenticated(this))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                Tache tache = db.Taches.Find(id);
+                if (tache == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tache);
             }
-            Tache tache = db.Taches.Find(id);
-            if (tache == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tache);
+            else
+                return Redirect("/");
         }
 
         // GET: Taches/Create
         public ActionResult Create()
         {
-            var tache = new Tache();
-            tache.donneeA = new List<Utilisateur>();
-            getRoleDropdownList();
-            getChildrenList(tache);
-            return View();
+            if (UtilisateursController.isAuthenticated(this))
+            {
+                var tache = new Tache();
+                tache.donneeA = new List<Utilisateur>();
+                getRoleDropdownList();
+                getChildrenList(tache);
+                return View();
+            }
+            else
+                return Redirect("/");
         }
 
         // POST: Taches/Create
@@ -54,47 +67,57 @@ namespace FamiLife.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents,donneeParID,donneeA")] Tache tache,string[] selectedChildren)
         {
-            if(selectedChildren !=null)
+            if (UtilisateursController.isAuthenticated(this))
             {
-                tache.donneeA = new List<Utilisateur>();
-                foreach(var child in selectedChildren)
+                if (selectedChildren != null)
                 {
-                    var childToAdd = db.Utilisateurs.Find(int.Parse(child));
-                    tache.donneeA.Add(childToAdd);
+                    tache.donneeA = new List<Utilisateur>();
+                    foreach (var child in selectedChildren)
+                    {
+                        var childToAdd = db.Utilisateurs.Find(int.Parse(child));
+                        tache.donneeA.Add(childToAdd);
+                    }
                 }
-            }
 
-            if (ModelState.IsValid)
-            {
-                db.Taches.Add(tache);
-                try
+                if (ModelState.IsValid)
                 {
-                    db.SaveChanges();
-                }
-                catch(Exception e)
-                {
-                    
-                }
-                return RedirectToAction("Index");
-            }
+                    db.Taches.Add(tache);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
 
-            getRoleDropdownList(tache.donneeParID);
-            return View(tache);
+                    }
+                    return RedirectToAction("Index");
+                }
+
+                getRoleDropdownList(tache.donneeParID);
+                return View(tache);
+            }
+            else
+                return Redirect("/");
         }
 
         // GET: Taches/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (UtilisateursController.isAuthenticated(this))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tache tache = db.Taches.Find(id);
+                if (tache == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tache);
             }
-            Tache tache = db.Taches.Find(id);
-            if (tache == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tache);
+            else
+                return Redirect("/");
         }
 
         // POST: Taches/Edit/5
@@ -104,28 +127,38 @@ namespace FamiLife.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents")] Tache tache)
         {
-            if (ModelState.IsValid)
+            if (UtilisateursController.isAuthenticated(this))
             {
-                db.Entry(tache).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(tache).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(tache);
             }
-            return View(tache);
+            else
+                return Redirect("/");
         }
 
         // GET: Taches/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (UtilisateursController.isAuthenticated(this))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tache tache = db.Taches.Find(id);
+                if (tache == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tache);
             }
-            Tache tache = db.Taches.Find(id);
-            if (tache == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tache);
+            else
+                return Redirect("/");
         }
 
         // POST: Taches/Delete/5
@@ -133,10 +166,15 @@ namespace FamiLife.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Tache tache = db.Taches.Find(id);
-            db.Taches.Remove(tache);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (UtilisateursController.isAuthenticated(this))
+            {
+                Tache tache = db.Taches.Find(id);
+                db.Taches.Remove(tache);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+                return Redirect("/");
         }
 
         protected override void Dispose(bool disposing)
