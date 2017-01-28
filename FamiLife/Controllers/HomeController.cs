@@ -59,5 +59,14 @@ namespace FamiLife.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        private ActionResult logOut()
+        {
+            if(Session["utilisateur"] != null)
+            {
+                Session.Abandon();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
