@@ -20,6 +20,10 @@
                 @Html.ActionLink("FamiLife", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Utilisateur", "Index", "Utilisateurs", new { area = "" }, new { @class = "navbar-item" })
                 @Html.ActionLink("Role", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })
+                @if (HttpContext.Current.Session["utilisateur"] != null)
+                {
+                    @Html.ActionLink("Déconnexion", "logOut", "Home")
+                }
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
