@@ -60,7 +60,7 @@ namespace FamiLife.Controllers
             }
         }
 
-        private ActionResult logOut()
+        public ActionResult logOut()
         {
             if(Session["utilisateur"] != null)
             {

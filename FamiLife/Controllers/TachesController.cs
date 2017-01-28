@@ -22,6 +22,21 @@ namespace FamiLife.Controllers
             return View(db.Taches.ToList());
         }
 
+        public ActionResult MesTaches()
+        {
+            if(Session["utilisateur"] ==null && ((Utilisateur)Session["utilisateur"]).roleID !=2)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var tacheChildren = (from t in db.Taches
+                                     where db.tach)
+                                     select t).ToList();
+                return View(tacheChildren);
+            }
+        }
+
         // GET: Taches/Details/5
         public ActionResult Details(int? id)
         {
