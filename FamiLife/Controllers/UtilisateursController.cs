@@ -14,6 +14,11 @@ namespace FamiLife.Controllers
     {
         private FamiLifeDbContext db = new FamiLifeDbContext();
 
+        public static Boolean isAuthenticated(Controller caller)
+        {
+            return (caller.Session["utilisateur"] != null);
+        }
+
         // GET: Utilisateurs
         public ActionResult Index()
         {

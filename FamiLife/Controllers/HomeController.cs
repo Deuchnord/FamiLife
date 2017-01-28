@@ -14,10 +14,19 @@ namespace FamiLife.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            if (TempData["AuthErr"] != null)
-                ViewBag.authErr = TempData["AuthErr"].ToString();
+            if (Session["utilisateur"] == null)
+            {
+                // Si l'utilisateur n'est pas authentifié, on affiche 
+                if (TempData["AuthErr"] != null)
+                    ViewBag.authErr = TempData["AuthErr"].ToString();
 
-            return View();
+                return View();
+            }
+            else
+            {
+                // Sinon, on redirige vers la liste de tâches de l'utilisateur courant.
+                return Redirect("/taches");
+            }
         }
 
         // POST: identify
@@ -60,6 +69,7 @@ namespace FamiLife.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult logOut()
         {
             if(Session["utilisateur"] != null)

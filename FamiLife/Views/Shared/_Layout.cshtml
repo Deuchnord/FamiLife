@@ -17,13 +17,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("FamiLife", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Utilisateur", "Index", "Utilisateurs", new { area = "" }, new { @class = "navbar-item" })
-                @Html.ActionLink("Role", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })
-                @Html.ActionLink("Se déconnecter","logOut","Home", new { area=""}, new { @class = "navbar-item"})
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("FamiLife", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Utilisateur", "Index", "Utilisateurs", new { area = "" }, new { @class = "navbar-item" })</li>
+                    <li>@Html.ActionLink("Role", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })</li>
+                    @if (HttpContext.Current.Session["utilisateur"] != null)
+                    {
+                        <li>@Html.ActionLink("Déconnexion", "logOut", "Home")</li>
+                    }
                 </ul>
             </div>
         </div>
