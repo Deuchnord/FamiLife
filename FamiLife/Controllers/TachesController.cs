@@ -84,6 +84,33 @@ namespace FamiLife.Controllers
                 return Redirect("/");
         }
 
+        // GET: Taches/Done/5
+        public ActionResult Done(int? id)
+        {
+            if(UtilisateursController.isAuthenticated(this))
+            {
+                if (id == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                Tache tache = db.Taches.Find(id);
+
+                if (tache == null)
+                    return HttpNotFound();
+
+                //if (!tache.donneeA.Contains((Utilisateur) Session["utilisateur"]))
+                    //return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
+                // On inverse la valeur de tacheFaite. Ceci permet également d'annuler l'action
+                tache.tacheFaite = !tache.tacheFaite;
+                db.Entry(tache).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("MesTaches");
+            }
+
+            return Redirect("/");
+        }
+
         // GET: Taches/Create
         public ActionResult Create()
         {
