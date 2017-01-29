@@ -24,19 +24,15 @@
         <th>
             @Html.DisplayNameFor(model => model.echeance)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tacheFaite)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.valideeParParents)
-        </th>
         <th>Affectée à</th>
-        <th>Action</th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        if (!item.valideeParParents)
+        {
+        <tr class="@(item.tacheFaite ? "doneTask" : "")">
             <td>
                 @Html.DisplayFor(modelItem => item.titre)
             </td>
@@ -47,12 +43,6 @@
                 @Html.DisplayFor(modelItem => item.echeance)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.tacheFaite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.valideeParParents)
-            </td>
-            <td>
                 @foreach (var child in item.donneeA)
                 {
                     @Html.DisplayFor(modelItem => child.prenom) <br />
@@ -60,7 +50,7 @@
 
             </td>
             <td>
-                @if ( ! item.tacheFaite)
+                @if (!item.tacheFaite)
                 {
                  @Html.ActionLink("C'est fait", "done", "Taches", new { id = item.id }, new { @class = "btn btn-default" })
                 }
@@ -70,6 +60,7 @@
                 }
             </td>
         </tr>
+        }
     }
 
 </table>
