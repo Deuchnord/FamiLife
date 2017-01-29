@@ -60,7 +60,14 @@
 
             </td>
             <td>
-               @Html.ActionLink("C'est fait","done","Taches", new { id = item.id },new { @class = "btn btn-default"})
+                @if (item.tacheFaite)
+                {
+                 @Html.ActionLink("C'est fait", "done", "Taches", new { id = item.id }, new { @class = "btn btn-default" })
+                }
+                else
+                {
+                    @Html.ActionLink("C'est pas fait", "done", "Taches", new { id = item.id }, new { @class = "btn btn-default" })
+                }
             </td>
         </tr>
     }
