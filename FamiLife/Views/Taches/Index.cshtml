@@ -58,11 +58,6 @@
 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
-        <td>
         @if (item.tacheFaite)
         {
             @Html.ActionLink("Valider", "Validate", "Taches", new { id = item.id }, new { @class = "btn btn-success" })

@@ -68,27 +68,6 @@ namespace FamiLife.Controllers
             }
         }
 
-        // GET: Taches/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (UtilisateursController.isAuthenticated(this))
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
-                Tache tache = db.Taches.Find(id);
-                if (tache == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(tache);
-            }
-            else
-                return Redirect("/");
-        }
-
         // GET: Taches/Done/5
         public ActionResult Done(int? id)
         {
@@ -189,96 +168,6 @@ namespace FamiLife.Controllers
 
                 getRoleDropdownList(tache.donneeParID);
                 return View(tache);
-            }
-            else
-                return Redirect("/");
-        }
-
-        // GET: Taches/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (UtilisateursController.isAuthenticated(this))
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Tache tache = db.Taches.Find(id);
-               
-                getRoleDropdownList();
-                getChildrenList(tache);
-                if (tache == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(tache);
-            }
-            else
-                return Redirect("/");
-        }
-
-        // POST: Taches/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents,donneeParID,donneeA")] Tache tache, string[] selectedChildren)
-        {
-            if (UtilisateursController.isAuthenticated(this))
-            {
-                if (selectedChildren != null)
-                {
-                    tache.donneeA = new List<Utilisateur>();
-                    foreach (var child in selectedChildren)
-                    {
-                        var childToAdd = db.Utilisateurs.Find(int.Parse(child));
-                        tache.donneeA.Add(childToAdd);
-                    }
-                }
-                if (ModelState.IsValid)
-                {
-                    db.Entry(tache).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                getRoleDropdownList(tache.donneeParID);
-                return View(tache);
-            }
-            else
-                return Redirect("/");
-        }
-
-        // GET: Taches/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (UtilisateursController.isAuthenticated(this))
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Tache tache = db.Taches.Find(id);
-                if (tache == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(tache);
-            }
-            else
-                return Redirect("/");
-        }
-
-        // POST: Taches/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (UtilisateursController.isAuthenticated(this))
-            {
-                Tache tache = db.Taches.Find(id);
-                db.Taches.Remove(tache);
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
             else
                 return Redirect("/");
