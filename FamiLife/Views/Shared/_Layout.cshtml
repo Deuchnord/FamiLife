@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using FamiLife.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,12 +23,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("FamiLife", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Utilisateur", "Index", "Utilisateurs", new { area = "" }, new { @class = "navbar-item" })</li>
-                    <li>@Html.ActionLink("Role", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })</li>
-                    @if (HttpContext.Current.Session["utilisateur"] != null)
-                    {
-                        <li>@Html.ActionLink("Déconnexion", "logOut", "Home")</li>
-                    }
+            @if (HttpContext.Current.Session["utilisateur"] != null)
+            {
+                    <li class="navbar-text">Bienvenue, @(((Utilisateur) HttpContext.Current.Session["utilisateur"]).prenom)&nbsp;!</li>
+                if (((Utilisateur)HttpContext.Current.Session["utilisateur"]).roleID == 1)
+                {
+                    <li>@Html.ActionLink("Utilisateurs", "Index", "Utilisateurs", new { area = "" }, new { @class = "navbar-item" })</li>
+                    <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })</li>
+                }
+                    <li>@Html.ActionLink("Déconnexion", "logOut", "Home")</li>
+            }
                 </ul>
             </div>
         </div>
