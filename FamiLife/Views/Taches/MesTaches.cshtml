@@ -31,6 +31,7 @@
             @Html.DisplayNameFor(model => model.valideeParParents)
         </th>
         <th>Affectée à</th>
+        <th>Action</th>
     </tr>
 
     @foreach (var item in Model)
@@ -59,9 +60,7 @@
 
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+               @Html.ActionLink("C'est fait","done","Taches", new { id = item.id },new { @class = "btn btn-default"})
             </td>
         </tr>
     }
