@@ -59,8 +59,21 @@ namespace FamiLife.Controllers
                                                taches = u.taches
                                            }).ToList()[0];
                 Session["utilisateur"] = Utilisateur;
-                
-                return Redirect("/taches");
+                if(((Utilisateur)(Session["utilisateur"])).roleID==1)
+                {
+                    return Redirect("/taches");
+                }
+                else if (((Utilisateur)(Session["utilisateur"])).roleID == 2)
+                {
+                    return RedirectToAction("MesTaches", "Taches");
+                }
+                else
+                {
+                    return Redirect("/Index");
+                }
+
+
+
 
             } catch(ArgumentOutOfRangeException e)
             {
