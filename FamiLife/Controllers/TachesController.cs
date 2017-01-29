@@ -33,8 +33,8 @@ namespace FamiLife.Controllers
             else
             {
                 Utilisateur utilisateur = (Utilisateur)Session["utilisateur"];
-                IEnumerable<Tache> mesTaches = Enumerable.AsEnumerable((from t in db.Taches
-                                     where t.donneeA.Contains(utilisateur)
+                IEnumerable<Tache> mesTaches = ((from t in db.Taches
+                                     where (t.donneeA.Select(u => u.id).Contains(utilisateur.id))
                                      select new {
                                          t.id,
                                          t.description,
@@ -45,7 +45,7 @@ namespace FamiLife.Controllers
                                          t.tacheFaite,
                                          t.titre,
                                          t.valideeParParents
-                                     }))
+                                     })).AsEnumerable()
                                      .Select(t => new Tache
                                      {
                                          id = t.id,
@@ -57,9 +57,9 @@ namespace FamiLife.Controllers
                                          tacheFaite = t.tacheFaite,
                                          titre = t.titre,
                                          valideeParParents = t.valideeParParents
-                                     });
+                                     }).ToList();
 
-                return View(mesTaches.ToList());
+                return View(mesTaches);
             }
         }
 
