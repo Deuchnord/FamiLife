@@ -6,9 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>Bienvenue, @( ((Utilisateur)HttpContext.Current.Session["utilisateur"]).prenom )</p>
+<h2>Tâches en cours</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -34,6 +32,8 @@
     </tr>
 
 @foreach (var item in Model) {
+    if (!item.valideeParParents)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.titre)
@@ -58,9 +58,9 @@
 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
         </td>
         <td>
         @if (item.tacheFaite)
@@ -70,6 +70,7 @@
         }
         </td>
     </tr>
+    }
 }
 
 </table>
