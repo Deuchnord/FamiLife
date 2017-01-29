@@ -19,7 +19,12 @@ namespace FamiLife.Controllers
         public ActionResult Index()
         {
             if (UtilisateursController.isAuthenticated(this))
-                return View(db.Taches.ToList());
+            {
+                if (((Utilisateur)(Session["utilisateur"])).roleID == 1)
+                    return View(db.Taches.ToList());
+                else
+                    return RedirectToAction("MesTaches");
+            }
             else
                 return Redirect("/");
         }
