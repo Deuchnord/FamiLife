@@ -60,7 +60,7 @@
 
             </td>
             <td>
-                @if (item.tacheFaite)
+                @if ( ! item.tacheFaite)
                 {
                  @Html.ActionLink("C'est fait", "done", "Taches", new { id = item.id }, new { @class = "btn btn-default" })
                 }
