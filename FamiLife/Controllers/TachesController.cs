@@ -116,6 +116,29 @@ namespace FamiLife.Controllers
             return Redirect("/");
         }
 
+        // GET: Taches/Validate/5
+        public ActionResult Validate(int? id)
+        {
+            if (UtilisateursController.isAuthenticated(this) && ((Utilisateur) Session["utilisateur"]).roleID == 1)
+            {
+                if (id == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                Tache tache = db.Taches.Find(id);
+
+                if (tache == null)
+                    return HttpNotFound();
+
+                tache.valideeParParents = true;
+                db.Entry(tache).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return Redirect("/");
+        }
+
         // GET: Taches/Create
         public ActionResult Create()
         {
