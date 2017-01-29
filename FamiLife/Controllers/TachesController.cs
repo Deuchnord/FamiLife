@@ -204,6 +204,9 @@ namespace FamiLife.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Tache tache = db.Taches.Find(id);
+               
+                getRoleDropdownList();
+                getChildrenList(tache);
                 if (tache == null)
                 {
                     return HttpNotFound();
@@ -219,16 +222,26 @@ namespace FamiLife.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents")] Tache tache)
+        public ActionResult Edit([Bind(Include = "id,titre,description,echeance,tacheFaite,valideeParParents,donneeParID,donneeA")] Tache tache, string[] selectedChildren)
         {
             if (UtilisateursController.isAuthenticated(this))
             {
+                if (selectedChildren != null)
+                {
+                    tache.donneeA = new List<Utilisateur>();
+                    foreach (var child in selectedChildren)
+                    {
+                        var childToAdd = db.Utilisateurs.Find(int.Parse(child));
+                        tache.donneeA.Add(childToAdd);
+                    }
+                }
                 if (ModelState.IsValid)
                 {
                     db.Entry(tache).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                getRoleDropdownList(tache.donneeParID);
                 return View(tache);
             }
             else
