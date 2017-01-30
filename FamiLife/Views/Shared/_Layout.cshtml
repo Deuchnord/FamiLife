@@ -25,13 +25,15 @@
                     <li>@Html.ActionLink("FamiLife", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
             @if (HttpContext.Current.Session["utilisateur"] != null)
             {
-                    <li class="navbar-text">Bienvenue, @(((Utilisateur) HttpContext.Current.Session["utilisateur"]).prenom)&nbsp;!</li>
+                    <li class="navbar-text">Bienvenue, @(((Utilisateur)HttpContext.Current.Session["utilisateur"]).prenom)&nbsp;!</li>
                 if (((Utilisateur)HttpContext.Current.Session["utilisateur"]).roleID == 1)
                 {
                     <li>@Html.ActionLink("Utilisateurs", "Index", "Utilisateurs", new { area = "" }, new { @class = "navbar-item" })</li>
-
                 }
-                <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })</li>
+            }
+                    <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })</li>
+            @if(HttpContext.Current.Session["utilisateur"] != null)
+            {
                     <li>@Html.ActionLink("Déconnexion", "logOut", "Home")</li>
             }
                 </ul>
