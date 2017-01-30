@@ -29,8 +29,9 @@
                 if (((Utilisateur)HttpContext.Current.Session["utilisateur"]).roleID == 1)
                 {
                     <li>@Html.ActionLink("Utilisateurs", "Index", "Utilisateurs", new { area = "" }, new { @class = "navbar-item" })</li>
-                    <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })</li>
+
                 }
+                <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "" }, new { @class = "navbar-item" })</li>
                     <li>@Html.ActionLink("Déconnexion", "logOut", "Home")</li>
             }
                 </ul>
